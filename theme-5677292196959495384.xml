@@ -91,8 +91,21 @@ Url: https://lthwbootstrap4.blogspot.com
             // handle XHR response
             function responseMethod(){
               if (httpRequest.readyState === 4){
-                console.log(httpRequest.responseText);
+                //console.log(httpRequest.responseText);
+                updateUISuccess(httpRequest.responseText);
               }
+            }
+
+            // parse response
+            function updateUISuccess(responseText){
+                var response;
+                response = JSON.parse(responseText);
+                console.log(response);
+                console.log(response.weather[0].main);
+                console.log(response.main.temp);
+
+                var openWeather = document.getElementById('openweather');
+                openWeather.innerHTML = "<span>Weather condition: " + response.weather[0].main + " / Temperature: " + response.main.temp + "</span>" ;
             }
           });
           //]]>
