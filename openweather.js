@@ -32,4 +32,9 @@ $(document).ready(function() {
         openWeather.innerHTML = "<span>Weather condition: " + response.weather[0].main + " / Temperature: " + response.main.temp + "</span>" ;
     }
 
+    function updateUIError(){
+      var openWeather = document.getElementById('openweather');
+      openWeather.innerHTML = "";
+    }
+
   });

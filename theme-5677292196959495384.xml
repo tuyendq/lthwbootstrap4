@@ -112,7 +112,17 @@ Url: https://lthwbootstrap4.blogspot.com
         </script>
       </div><!-- /breaknews2-->
     </section>
+
+	
+
+
     <section class='row container-fluid mb-3'>
+
+
+
+
+
+
       <div class='col-12 col-sm-6 col-lg-4'>
         <b:section id='header-left' maxwidgets='1'>
           <b:widget id='Image1' locked='true' title='' type='Image' version='1'>
@@ -194,8 +204,76 @@ Url: https://lthwbootstrap4.blogspot.com
       </div>
     </nav>
     <div class='container-fluid mt-3 mb-3'>
+<div class='row mb-3'>
+<div class='col-12 col-md-6'>
+<b:section id='section4' showaddelements='yes'>
+  <b:widget id='HTML3' locked='false' title='' type='HTML'>
+    <b:widget-settings>
+      <b:widget-setting name='content'>&lt;div id=&#39;carousel&#39; class=&#39;carousel slide&#39; data-ride=&#39;carousel&#39;&gt;&lt;/div&gt;
+&lt;script&gt;
 
-	  
+var url_domain = &quot;https://lthwbootstrap4.blogspot.com&quot;;
+var url_json = url_domain + &quot;/feeds/posts/default?alt=json&quot;;
+
+var numPost = 4
+
+$.ajax({
+    url: url_json,
+    type: &quot;get&quot;,
+    dataType: &quot;jsonp&quot;,
+    success: function(data) {
+        console.log(data);
+        updateCarousel(data);
+    }
+});
+
+// Build carousel
+function updateCarousel(json_data){
+    var htmlCode = &#39;&lt;div class=&quot;carousel-inner&quot;&gt;&#39;;
+    for (var i = 0; i &lt; numPost; i++) {
+        // Get Post Title
+        // var postTitle = json_data.feed.entry[i].title.$t; 
+        // Get Featured Imange - the first image in post&#39;s content
+        var featuredImageUrl;
+        s = json_data.feed.entry[i].content.$t;
+        a = s.indexOf(&quot;&lt;img&quot;);
+        b = s.indexOf(&quot;src=\&quot;&quot;);
+        c = s.indexOf(&quot;\&quot;&quot;, b + 5);
+        d = s.substr(b + 5, c - b -5);
+        if ((a != -1) &amp;&amp; (b != -1) &amp;&amp; (c != -1) &amp;&amp; (d != &quot;&quot;)) {
+            featuredImageUrl = d;
+        } else {
+            featuredImageUrl = &quot;https://3.bp.blogspot.com/-WZoOgS428Ek/WtlJvEE3v4I/AAAAAAAALgo/VZ0g5mvuUbsDvnDVmjHRQNZg8vRzj2DxwCLcBGAs/s1600/conquer-fear-1444099_640.jpg&quot;;
+        }
+
+        if (i == 0){
+            htmlCode += &#39;&lt;div class=&quot;carousel-item active&quot;&gt;&lt;img class=&quot;d-block w-100&quot; src=&quot;&#39; + featuredImageUrl + &#39;&quot;&gt;&lt;/div&gt;&#39;;
+        } else {
+            htmlCode += &#39;&lt;div class=&quot;carousel-item&quot;&gt;&lt;img class=&quot;d-block w-100&quot; src=&quot;&#39; + featuredImageUrl + &#39;&quot;&gt;&lt;/div&gt;&#39;;
+        }
+    }
+    htmlCode += &#39;&lt;/div&gt;&#39;;
+    document.getElementById(&#39;carousel&#39;).innerHTML = htmlCode;
+}
+
+    &lt;/script&gt;</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+  <!-- only display title if it's non-empty -->
+  <b:if cond='data:title != &quot;&quot;'>
+    <h2 class='title'><data:title/></h2>
+  </b:if>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+
+  <b:include name='quickedit'/>
+</b:includable>
+  </b:widget>
+</b:section>
+</div>
+<div class='col-12 col-md-6'></div>
+</div>
 		<b:if cond='data:blog.pageType == &quot;index&quot;'>
 		<b:section id='section0' showaddelement='yes'>
 <b:widget id='PopularPosts1' locked='false' title='' type='PopularPosts' version='1'>
